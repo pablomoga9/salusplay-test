@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\categoriesController;
 use App\Http\Controllers\recipesController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,13 @@ Route::get('/', function () {
 //Grupo rutas recetas
 
 Route::controller(recipesController::class)->group(function(){
-    Route::get('/recipes','index');
+    Route::get('/api/recipes','index');
+    Route::get('/api/recipes/{slug}','show');
+});
+
+Route::controller(categoriesController::class)->group(function(){
+    Route::get('/api/categories','index');
+    Route::get('/api/categories/{slug}','show');
 });
 
 Route::get('/dbconn',function(){

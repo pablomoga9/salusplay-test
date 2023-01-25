@@ -24,7 +24,7 @@ class recipesController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +35,7 @@ class recipesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
     }
 
     /**
@@ -44,9 +44,13 @@ class recipesController extends Controller
      * @param  \App\Models\Recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function show(Recipe $recipe)
+    public function show($slug)
     {
-        //
+        
+        
+        
+        $recipes = Recipe::where('slug',$slug)->first();
+        return $recipes;
     }
 
     /**

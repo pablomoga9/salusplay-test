@@ -14,7 +14,7 @@ class categoriesController extends Controller
      */
     public function index()
     {
-        //
+        return Category::all();
     }
 
     /**
@@ -44,9 +44,10 @@ class categoriesController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($slug)
     {
-        //
+        $categories = Category::where('slug',$slug)->first();
+        return $categories;
     }
 
     /**
