@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\recipesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,8 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/api/sayHello',function(){
-    return "holaholahola";
+//Grupo rutas recetas
+
+Route::controller(recipesController::class)->group(function(){
+    Route::get('/recipes','index');
 });
 
 Route::get('/dbconn',function(){
