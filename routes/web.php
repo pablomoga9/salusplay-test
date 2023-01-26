@@ -6,14 +6,15 @@ use App\Http\Controllers\recipesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
+Route::group(['middleware' => ['cors']], function () {
+    
 Route::controller(recipesController::class)->group(function(){
     Route::get('/admin/recipes','index');
     Route::get('/admin/recipes/{slug}','show');
+    Route::post('/admin/recipes/create','store');
+    Route::delete('/admin/recipes/delete/{id}','destroy');
+    Route::get('/admin/recipes/{id}/edit','edit');
+    Route::put('/admin/recipes/{id}/update','update');
 });
 
 
@@ -33,16 +34,11 @@ Route::controller(AuthController::class)->group(function(){
 });
 
 Route::middleware(['auth:sanctum'])->group(function(){
-    Route::controller(recipesController::class)->group(function(){
-        Route::post('/admin/recipes/create','store');
-        Route::delete('/admin/recipes/delete/{id}','destroy');
-        Route::get('/admin/recipes/{id}/edit','edit');
-        Route::put('/admin/recipes/{id}/update','update');
-    });
+  
     Route::get('/logout',[AuthController::class,'logout']);
 });
 
-
-Route::get('/dbconn',function(){
-    return view('dbconn');
 });
+// Route::get('/dbconn',function(){
+//     return view('dbconn');
+// });

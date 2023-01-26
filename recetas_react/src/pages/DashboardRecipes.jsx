@@ -1,7 +1,5 @@
-import React from 'react'
-import { useState } from 'react'
+import React,{useState,useEffect} from 'react'
 import axios from 'axios';
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import slugify from 'react-slugify';
 
@@ -32,19 +30,19 @@ function DashboardRecipes() {
     formData.append('category_id',form.select)
     formData.append('slug',slugify(form.title) )
 
-    const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/admin/recipes/create`, formData);
+    const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/admin/recipes/create`, formData);
     setImgRender(res.data);
     console.log(res.data)
   }
 
   useEffect(() => {
-
+    
   }, [imgRender])
 
   useEffect(() => {
     const getAllRecipes = async()=>{
       try{  
-        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/admin/recipes`);
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/admin/recipes`);
         setRecipes(res.data);
       }
       catch(error){
@@ -54,7 +52,7 @@ function DashboardRecipes() {
     getAllRecipes()
     const getCategoriesSelector = async () => {//Obtener la lista de categorías existentes para poder desplegarlas en el selector de "Categoría" para la creación de receta
       try {
-        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/admin/categories/list`);
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/admin/categories/list`);
         setCategories(res.data)
       }
       catch (error) {
