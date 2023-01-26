@@ -24,11 +24,13 @@ Route::get('/', function () {
 Route::controller(recipesController::class)->group(function(){
     Route::get('/api/recipes','index');
     Route::get('/api/recipes/{slug}','show');
+    Route::post('/api/recipes/create','store');
 });
 
 Route::controller(categoriesController::class)->group(function(){
     Route::get('/api/categories','index');
     Route::get('/api/categories/{slug}','show');
+    Route::post('api/categories/create','store');
 });
 
 Route::get('/dbconn',function(){
