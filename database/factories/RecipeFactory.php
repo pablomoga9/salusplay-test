@@ -8,9 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Category;
 use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Recipe>
- */
+
 class RecipeFactory extends Factory
 {
 

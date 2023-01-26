@@ -29,6 +29,7 @@ function DashboardRecipes() {
     formData.append('servings', form.servings)
     formData.append('ingredients', form.ingredients)
     formData.append('procedure', form.procedure)
+    formData.append('category_id',form.select)
     formData.append('slug',slugify(form.title) )
 
     const res = await axios.post('http://localhost:8000/api/recipes/create', formData);
