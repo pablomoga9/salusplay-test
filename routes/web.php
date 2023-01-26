@@ -11,15 +11,11 @@ Route::get('/', function () {
 });
 
 
-
 Route::controller(recipesController::class)->group(function(){
     Route::get('/admin/recipes','index');
     Route::get('/admin/recipes/{slug}','show');
-    Route::post('/admin/recipes/create','store');
-    Route::delete('/admin/recipes/delete/{id}','destroy');
-    Route::get('/admin/recipes/{id}/edit','edit');
-    Route::put('/admin/recipes/{id}/update','update');
 });
+
 
 Route::controller(categoriesController::class)->group(function(){
     Route::get('/admin/categories','index');
@@ -37,6 +33,12 @@ Route::controller(AuthController::class)->group(function(){
 });
 
 Route::middleware(['auth:sanctum'])->group(function(){
+    Route::controller(recipesController::class)->group(function(){
+        Route::post('/admin/recipes/create','store');
+        Route::delete('/admin/recipes/delete/{id}','destroy');
+        Route::get('/admin/recipes/{id}/edit','edit');
+        Route::put('/admin/recipes/{id}/update','update');
+    });
     Route::get('/logout',[AuthController::class,'logout']);
 });
 
