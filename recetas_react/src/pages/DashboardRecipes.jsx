@@ -32,7 +32,7 @@ function DashboardRecipes() {
     formData.append('category_id',form.select)
     formData.append('slug',slugify(form.title) )
 
-    const res = await axios.post('http://localhost:8000/api/recipes/create', formData);
+    const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/admin/recipes/create`, formData);
     setImgRender(res.data);
     console.log(res.data)
   }
@@ -44,7 +44,7 @@ function DashboardRecipes() {
   useEffect(() => {
     const getAllRecipes = async()=>{
       try{  
-        const res = await axios.get('http://localhost:8000/api/recipes');
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/admin/recipes`);
         setRecipes(res.data);
       }
       catch(error){
@@ -54,7 +54,7 @@ function DashboardRecipes() {
     getAllRecipes()
     const getCategoriesSelector = async () => {//Obtener la lista de categorías existentes para poder desplegarlas en el selector de "Categoría" para la creación de receta
       try {
-        const res = await axios.get('http://localhost:8000/api/categories/list');
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/admin/categories/list`);
         setCategories(res.data)
       }
       catch (error) {
