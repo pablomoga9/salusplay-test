@@ -4,82 +4,86 @@ namespace App\Http\Controllers;
 
 use App\Models\Recipe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class recipesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function index()
     {
-        //
+        return Recipe::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
-        //
+        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
-    {
-        //
+    {   
+        $file = $request->hasFile('file');
+       
+        if($file){
+            $newFile = $request->file('file');
+            $file_path = $newFile->store('images','public');
+            
+            $recipe = new Recipe();
+            $recipe->title=$request->title;
+            $recipe->image=asset('/storage/'. $file_path);
+            $recipe->preparation_time=$request->preparation_time;
+            $recipe->servings=$request->servings;
+            $recipe->ingredients=$request->ingredients;
+            $recipe->procedure=$request->procedure;
+            $recipe->slug=Str::slug($request->title,'-');
+            $recipe->category_id=$request->category_id;
+            $recipe->visible=true;
+            $recipe->save();
+            echo asset('/storage/'. $file_path);
+        }
+        
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Recipe  $recipe
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Recipe $recipe)
+    
+    public function show($slug)
     {
-        //
+        $recipes = Recipe::where('slug',$slug)->first();
+        return $recipes;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Recipe  $recipe
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Recipe $recipe)
+   
+    public function edit(Recipe $id)
     {
-        //
+        return $id;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Recipe  $recipe
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Recipe $recipe)
+   
+    public function update(Request $request, Recipe $id)
     {
-        //
+        $file = $request->hasFile('file');
+       
+
+        $id->title=$request->title;
+        if($file){
+            $newFile = $request->file('file');
+            $file_path = $newFile->store('images','public');
+            $id->image=asset('/storage/'. $file_path);
+        }
+        $id->preparation_time=$request->preparation_time;
+        $id->servings=$request->servings;
+        $id->ingredients=$request->ingredients;
+        $id->procedure=$request->procedure;
+        $id->category_id=$request->category_id;
+        $id->slug=Str::slug($request->title,'-');
+        $id->visible=$request->visible;
+        $id->update();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Recipe  $recipe
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Recipe $recipe)
+   
+    public function destroy($id)
     {
-        //
+        $recipes = Recipe::where('id',$id)->first();
+        $recipes->delete();
+
     }
 }
