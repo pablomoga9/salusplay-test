@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class categoriesController extends Controller
 {
@@ -35,7 +36,14 @@ class categoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->title){
+            
+            $category = new Category();
+            $category->title=$request->title;
+            $category->slug=Str::slug($request->title,'-');
+            $category->visible=true;
+            $category->save();
+        } 
     }
 
     /**
@@ -48,6 +56,16 @@ class categoriesController extends Controller
     {
         $categories = Category::where('slug',$slug)->first();
         return $categories;
+    }
+
+
+    public function categoryList()
+    {
+        $categories = Category::get();
+        $subset = $categories->map(function($category){
+            return $category->only(['id','title']);
+        });
+        echo $subset;
     }
 
     /**
@@ -79,8 +97,9 @@ class categoriesController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $categories = Category::where('id',$id)->first();
+        $categories->delete();
     }
 }

@@ -44,7 +44,7 @@ class recipesController extends Controller
             
             $recipe = new Recipe();
             $recipe->title=$request->title;
-            $recipe->image=$file_path;
+            $recipe->image=asset('/storage/'. $file_path);
             $recipe->preparation_time=$request->preparation_time;
             $recipe->servings=$request->servings;
             $recipe->ingredients=$request->ingredients;
@@ -55,17 +55,6 @@ class recipesController extends Controller
             $recipe->save();
             echo asset('/storage/'. $file_path);
         }
-           
-            // Recipe::create([
-            //     'title'=>$request->title,
-            //     'image'=>'/storage'. $file_path,
-            //     'preparation_time'=>$request->preparation_time,
-            //     'servings'=>$request->servings,
-            //     'ingredients'=>$request->ingredients,
-            //     'procedure'=>$request->procedure,
-            //     'slug'=>$request->slug,
-            //     'visible'=>true
-            // ]);
         
     }
 
@@ -77,9 +66,6 @@ class recipesController extends Controller
      */
     public function show($slug)
     {
-        
-        
-        
         $recipes = Recipe::where('slug',$slug)->first();
         return $recipes;
     }
@@ -113,8 +99,10 @@ class recipesController extends Controller
      * @param  \App\Models\Recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Recipe $recipe)
+    public function destroy($id)
     {
-        //
+        $recipes = Recipe::where('id',$id)->first();
+        $recipes->delete();
+
     }
 }
