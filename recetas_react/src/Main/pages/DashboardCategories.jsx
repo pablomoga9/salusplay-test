@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { categoriesContext } from '../../context/categoriesContext';
 import CategoriesList from '../../components/CategoriesList';
+import { adminContext } from '../../context/adminContext';
+import { useNavigate } from 'react-router-dom';
 
 function DashboardCategories() {
   const {
@@ -11,9 +13,9 @@ function DashboardCategories() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  const {admin,setAdmin} = useContext(adminContext);
   const { categories, setCategories } = useContext(categoriesContext);
-
+  const navigate = useNavigate()
   const handleApi = async (form) => {
     try {
       const formData = {
@@ -29,6 +31,10 @@ function DashboardCategories() {
   }
 
   useEffect(() => {
+    if(admin===""){
+      navigate('/login')
+    }
+
     const getAllCategories = async () => {
       try {
         const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/categories`)
