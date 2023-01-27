@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import axios from "axios";
 import {useForm} from 'react-hook-form';
+import styled from 'styled-components';
 
 function EditForm(props) {
     const {register,formState:{errors},handleSubmit} = useForm();
@@ -72,6 +73,7 @@ function EditForm(props) {
     return (
     
     <>
+        <Container>
         <div className='editButtons'>
         <button onClick={deleteRecipe}>Borrar</button>
         <button onClick={openUpdate}>Editar</button>
@@ -105,8 +107,26 @@ function EditForm(props) {
         <input type='submit' value='Actualizar' />
       </form>
         </div>:null} 
+        </Container>
     </>
   )
 }
+
+
+const Container = styled.div`
+  form{
+    input{
+      margin: 0px;
+    }
+  }
+
+  .editButtons{
+    button{
+      margin: 5px;
+      background: #3a3ac3;
+      color: white;
+    }
+  }
+`
 
 export default EditForm

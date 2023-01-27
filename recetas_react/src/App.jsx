@@ -8,6 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 import {categoriesContext} from './context/categoriesContext.js';
 import { adminContext } from './context/adminContext';
 import './App.css'
+import styled from 'styled-components';
 
 const App = () => {
   const [recipes,setRecipes] = useState([]);
@@ -20,8 +21,10 @@ const App = () => {
         <adminContext.Provider value={{admin,setAdmin}}>
         <recipesContext.Provider value={{recipes,setRecipes}}>
         <categoriesContext.Provider value={{categories,setCategories}}>
-          <Header />
+         <Container>
+         <Header />
           <Main />
+         </Container>
         </categoriesContext.Provider>
         </recipesContext.Provider>
         </adminContext.Provider>
@@ -29,5 +32,10 @@ const App = () => {
     </div>
   )
 }
+
+const Container = styled.div`
+  background: #7f9bbf;
+  background: linear-gradient(191deg, #5c85a1 0%, #5c9aca7a 52%, #5db0f8 100%);
+`
 
 export default App;

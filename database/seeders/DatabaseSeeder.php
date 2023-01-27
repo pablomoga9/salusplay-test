@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->create();
         Category::factory(10)->create();
-        Recipe::factory(50)->create();
+        Recipe::factory(120)->create();
        
     }
 }
