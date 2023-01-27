@@ -49,6 +49,7 @@ function DashboardCategories() {
 
   return (
     <>
+      <h3>Crea una categoría:</h3>
       <form onSubmit={handleSubmit(handleApi)}>
         <label>Título para la categoría:</label>
         <input type="text" {...register('title', { required: true,minLength:3})} />
