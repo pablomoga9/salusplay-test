@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import slugify from 'react-slugify';
 import { Link } from 'react-router-dom';
 import RecipesList from '../../components/RecipesList';
 import styled from 'styled-components';
+import { adminContext } from '../../context/adminContext';
+import { useNavigate } from 'react-router-dom';
 
 function DashboardRecipes() {
   const {
@@ -16,6 +18,9 @@ function DashboardRecipes() {
   const [recipes, setRecipes] = useState([]);
   const [imgRender, setImgRender] = useState('');
   const [categories, setCategories] = useState([]);
+  const {admin,setAdmin} = useContext(adminContext);
+  const navigate = useNavigate();
+
 
   function handleImage(e) {
     console.log(e.target.files);
@@ -42,6 +47,10 @@ function DashboardRecipes() {
   }, [imgRender])
 
   useEffect(() => {
+    if(admin===""){
+      navigate('/login')
+    }
+
     const getAllRecipes = async () => {
       try {
         const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/recipes`);

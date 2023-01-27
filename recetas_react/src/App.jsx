@@ -12,7 +12,7 @@ import './App.css'
 const App = () => {
   const [recipes,setRecipes] = useState([]);
   const [categories,setCategories] = useState([]);
-  const [admin,setAdmin] = useState(false);
+  const [admin,setAdmin] = useState("");
 
   return (
     <div className='App'>
