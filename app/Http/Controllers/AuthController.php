@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Models\User;
+use Cookie;
 
 class AuthController extends Controller
 {
@@ -23,7 +24,7 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-
+        $cookie = Cookie::queue(Cookie::make('userToken',$token,30));
         return response()
         ->json([
             'message'=>'Hi'. $user->name,
