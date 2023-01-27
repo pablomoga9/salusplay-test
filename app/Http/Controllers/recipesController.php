@@ -39,7 +39,7 @@ class recipesController extends Controller
             $recipe->category_id=$request->category_id;
             $recipe->visible=true;
             $recipe->save();
-            echo asset('/storage/'. $file_path);
+           
         }
         
     }
