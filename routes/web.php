@@ -11,6 +11,7 @@ Route::group(['middleware' => ['cors']], function () {
 Route::controller(recipesController::class)->group(function(){
     Route::get('/api/recipes','index');
     Route::get('/api/recipes/{slug}','show');
+    Route::get('/api/recipes/list/{category_id}','getByCategory');
     Route::post('/api/admin/recipes/create','store');
     Route::delete('/api/admin/recipes/delete/{id}','destroy');
     Route::get('/api/admin/recipes/{id}/edit','edit');

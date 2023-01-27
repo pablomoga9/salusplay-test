@@ -44,6 +44,12 @@ class recipesController extends Controller
         
     }
 
+
+    public function getByCategory($category_id)
+    {
+        $recipes = Recipe::where('category_id',$category_id)->get();
+        return $recipes;
+    }
     
     public function show($slug)
     {

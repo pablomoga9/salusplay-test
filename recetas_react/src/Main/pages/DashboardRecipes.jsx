@@ -27,7 +27,7 @@ function DashboardRecipes() {
     setImage(e.target.files[0])
   }
   const handleApi = async (form) => {
-    console.log(form);
+   
     const formData = new FormData();
     formData.append('file', image);
     formData.append('title', form.title)
@@ -76,6 +76,7 @@ function DashboardRecipes() {
   return (
     <>
       <Container>
+        <h2>Crea una receta</h2>
       <form onSubmit={handleSubmit(handleApi)}>
         <label>Selecciona una imagen de tu equipo para la receta:</label>
         <input type="file" name='file' onChange={handleImage} />
@@ -110,21 +111,46 @@ function DashboardRecipes() {
 }
 
 const Container = styled.div`
-  
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  height: 100vh;
-  background-color: #B2464F;
-  background-size: 20px 20px;
-  animation: progress-bar-stripes 500ms linear infinite;
-
-
-@keyframes progress-bar-stripes {
-  0% {
-    background-position: 40px 0;
+  input[type=text]{
+    border-radius: 20px;
+    padding: 10px;
+    border: none;
+    margin-bottom: 10px;
   }
-  100% {
-    background-position: 0 0;
-  }}
+  input[type=submit]{
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #4747e3;
+    color: white;
+    cursor: pointer;
+    margin-top: 30px;
+  }
+
+  input[type=select]{
+    padding: 5px;
+  }
+  input[type=number]{
+    border-radius: 20px;
+    padding: 10px;
+    border: none;
+    margin-bottom: 10px;
+  }
+  form{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin: auto;
+    gap: 10px;
+    /* align-items: center; */
+    justify-content: center;
+
+    textarea{
+      border-radius: 10px;
+      border: none;
+    }
+  }
+ 
 `
 
 export default DashboardRecipes

@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect,useState } from 'react';
 import EditForm from './EditForm';
 import uuid4 from 'uuid4'
+import styled from 'styled-components';
 
 function RecipesList(props) {
 
@@ -29,8 +30,9 @@ function RecipesList(props) {
 
     return (
         <>
+            <Container>
             {currentItems.length > 0 ? currentItems.map((item,i) => {
-                return <div key={i}>
+                return <div className='recipe' key={i}>
                     <div className='dashboardRecipe'>
                         <h3>{item.title}</h3>
                         {item.visible==false||0?<h4><b>Oculto</b></h4>:null}
@@ -43,8 +45,28 @@ function RecipesList(props) {
                     <EditForm data={item} remove={()=>deleteRecipe(i)}/>
                 </div>
             }) : <p>Loading</p>}
+            </Container>
         </>
     )
 }
+
+
+const Container = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    width: 90%;
+    margin-top: 70px;
+    margin-right: 0px;
+    gap: 10px;
+    .recipe{
+        display: flex;
+        flex-direction: column;
+        width: 20%;
+        /* height: 700px; */
+        background: #2a2a7832;
+        border-radius: 10px;
+    }
+`
 
 export default RecipesList
